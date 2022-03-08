@@ -1,0 +1,30 @@
+---
+ 
+- name: Prerequisite Installation    
+  hosts: confluent    
+  tasks:      
+    - name: deploy kafka        
+      include_role:          
+        name: prerequisite
+  tags:
+  - prerequisite
+
+
+- name:  kafka deployment
+  hosts: kafka
+  tasks:
+    - name: deploy kafka 
+      include_role:
+        name: kafka
+  tags:
+  - kafka
+
+
+- name: zookeeper deplyment
+  hosts: confluent
+  tasks:
+    - name: deploy zookeeper
+      include_role:
+        name: zookeeper
+  tags:
+  - zookeeper

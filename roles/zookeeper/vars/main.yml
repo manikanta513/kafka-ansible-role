@@ -1,0 +1,6 @@
+---
+# vars file for zookeeper
+
+ZOOKEEPER_DATA_DIR: /home/vagrant/kafka/confluent-6.2.0/data/zookeeper 
+ZOOKEEPER_LOG_DIR: /home/vagrant/kafka/confluent-6.2.0/logs/zookeeper
+KAFKA_HOME: /home/vagrant/kafka/confluent-6.2.0

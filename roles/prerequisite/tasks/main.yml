@@ -1,0 +1,60 @@
+---
+# tasks file for prerequisite
+
+ - name: Install unzip software   
+   yum:     
+     name: unzip     
+     state: present   
+   become: true
+
+ - name: Create a directory for java
+   file:
+     path: '{{ JAVA_HOME }}'
+     state: directory
+
+
+ - name: copying java package
+   copy:
+     src: "{{ JAVA_PACKAGE }}.zip"
+     dest: /home/vagrant/java
+     #remote_src: yes
+
+ - name: validate java was unzipped or not
+   stat:
+     path: "{{ JAVA_HOME }}/{{ JAVA_PACKAGE }}"
+   register: value
+ 
+ - name: unzip java jar file
+   unarchive:
+     src: "{{ JAVA_HOME }}/{{ JAVA_PACKAGE }}.zip"
+     dest: /home/vagrant/java
+     remote_src: yes
+   when: value.stat.exists == False
+
+ - name: changing permissions of java folder to 775
+   file: path="{{ JAVA_HOME }}" mode=0775 state=directory recurse=yes
+
+ - name: setup environment variable
+   lineinfile: dest=/home/vagrant/.bashrc line='export PATH=$PATH:{{ JAVA_HOME }}/{{ JAVA_PACKAGE }}/bin' insertafter='EOF' state=present
+
+ - name: reload bashrc file
+   shell: source /home/vagrant/.bashrc
+
+ - name: create a kafka directory
+   file:
+     path: /home/vagrant/kafka
+     state: directory
+
+ - name: copy the confluent files to servers
+   copy:     
+     src: confluent-6.2.0.zip     
+     dest: /home/vagrant/kafka 
+ 
+ - name: unzip confluent package
+   unarchive:     
+     src: /home/vagrant/kafka/confluent-6.2.0.zip     
+     dest: /home/vagrant/kafka     
+     remote_src: yes
+
+ - name: setup confluent kafka Home environment variable
+   lineinfile: dest=/home/vagrant/.bashrc line='export PATH=$PATH:/home/vagrant/kafka/confluent-6.2.0/bin' insertafter='EOF' state=present   

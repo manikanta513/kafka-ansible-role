@@ -1,0 +1,16 @@
+---
+# tasks file for zookeeper
+
+- name: Create data directory for zookeeper
+  file:
+    path: "{{ KAFKA_HOME }}/data/zookeeper"
+    state: directory
+
+- name: copy properties file to tmp folder
+  template:
+    src: test.j2
+    dest: /tmp/test.properties
+
+- name: print zookeeper hostname
+  debug:
+    msg: "{{ ansible_hostname }}"

@@ -1,0 +1,21 @@
+---
+#- include_tasks: prerequesite.yml 
+# tasks file for kafka
+
+#- name: create a kafka directory
+#  file:
+#    path: /home/vagrant/kafka
+#    state: directory
+
+
+#- name: copy the confluent files to servers
+#  copy:
+#    src: confluent-6.2.0.zip 
+#    dest: /home/vagrant/kafka
+
+
+#- name: unzip confluent package
+#  unarchive:
+#    src: /home/vagrant/kafka/confluent-6.2.0.zip
+#    dest: /home/vagrant/kafka
+#    remote_src: yes

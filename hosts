@@ -1,0 +1,15 @@
+[kafka]
+node2
+
+[kafka:vars]
+
+[zookeeper]
+node3
+
+[confluent:children]
+kafka
+zookeeper
+
+[confluent:vars]
+JAVA_HOME=/home/vagrant/java
+JAVA_PACKAGE=java11
